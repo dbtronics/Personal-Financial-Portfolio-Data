@@ -26,7 +26,7 @@ def get_psx_data():
         
         # Extract all rows of the main table
         rows = page.query_selector_all("table#DataTables_Table_0 tbody tr")
-        
+
         for row in rows:
             cells = row.query_selector_all("td")
             data = {
@@ -43,7 +43,6 @@ def get_psx_data():
             }
             print(data)
 
-            csv_file = "psx_market_data.csv"
             # Convert numeric fields to float where possible
             for key in ["LDCP", "OPEN", "HIGH", "LOW", "CURRENT", "CHANGE", "CHANGE (%)", "VOLUME"]:
                 try:
