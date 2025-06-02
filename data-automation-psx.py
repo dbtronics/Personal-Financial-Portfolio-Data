@@ -33,7 +33,7 @@ def get_psx_data():
                 "CHANGE": cells[6].inner_text().strip(),
                 "CHANGE (%)": cells[7].inner_text().strip(),
                 "VOLUME": cells[8].inner_text().strip(),
-                "date extracted": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                "DATE EXTRACTED": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
             print(data)
 
@@ -53,7 +53,8 @@ def get_psx_data():
                     writer.writeheader()
                 writer.writerow(data)
         
-        print(f"Data successfully written to {csv_file}\n")
+        print(f"Data successfully written to {csv_file}")
+
         
         browser.close()
 
