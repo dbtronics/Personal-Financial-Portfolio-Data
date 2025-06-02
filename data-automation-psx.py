@@ -18,9 +18,15 @@ def get_psx_data():
         print("All data entries for regular market have been selected")
 
 
+        
+        csv_file = "psx_market_data.csv"
+        headers = ["SYMBOL", "LDCP", "OPEN", "HIGH", "LOW", "CURRENT", "CHANGE", "CHANGE (%)", "VOLUME", "DATE EXTRACTED"]
+        file_exists = os.path.isfile(csv_file)
+        table_rows = []
+        
         # Extract all rows of the main table
         rows = page.query_selector_all("table#DataTables_Table_0 tbody tr")
-
+        
         for row in rows:
             cells = row.query_selector_all("td")
             data = {
@@ -44,16 +50,15 @@ def get_psx_data():
                     data[key] = float(data[key].replace(',', '').replace('%', ''))
                 except ValueError:
                     pass  # Keep as is if conversion fails
-            headers = ["SYMBOL", "LDCP", "OPEN", "HIGH", "LOW", "CURRENT", "CHANGE", "CHANGE (%)", "VOLUME", "DATE EXTRACTED"]
+            table_rows.append(data)
 
-            file_exists = os.path.isfile(csv_file)
-            with open(csv_file, mode="a", newline="", encoding="utf-8") as f:
-                writer = csv.DictWriter(f, fieldnames=headers)
-                if not file_exists:
-                    writer.writeheader()
-                writer.writerow(data)
-        
-        print(f"Data successfully written to {csv_file}")
+        with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=headers)
+            writer.writeheader()
+            for row in table_rows:
+                writer.writerow(row)
+
+        print(f"Data successfully written to {csv_file}\n")
 
         
         browser.close()
