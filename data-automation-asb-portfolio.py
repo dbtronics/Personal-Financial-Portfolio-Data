@@ -20,8 +20,10 @@ def get_blossom_portfolio_data():
         page.fill('input[type="password"]', password)
         page.keyboard.press("Enter")
         time.sleep(5)  # Wait for login to complete
+        print("Successfully logged into Blossom Social")
         # page.click('div[data-sidebar="content"] > ul[data-sidebar="menu"] > li:nth-child(4) > div')
         page.click("span:text('Portfolio')")
+        print("Navigated to Portfolio page")
         time.sleep(5)  # Wait for the portfolio page to load
         content = page.content()
 
@@ -109,6 +111,7 @@ def get_blossom_portfolio_data():
 
         for row in extracted_data:
             print(row)
+        print("Extracted data from Blossom Portfolio")
 
         headers = [
             "Holding Symbol",
@@ -123,10 +126,12 @@ def get_blossom_portfolio_data():
             "All-time Return (%)"
         ]
 
-        with open("blossom_portfolio.csv", "w", newline="", encoding="utf-8") as f:
+        output_file = "blossom_portfolio.csv"
+        with open(output_file, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow(headers)
             writer.writerows(extracted_data)
+        print(f"Data successfully written to {output_file} on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
 
         browser.close()
         return content
