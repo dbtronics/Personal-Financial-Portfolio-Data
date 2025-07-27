@@ -11,6 +11,8 @@ def get_blossom_portfolio_data():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
+        
+        # Navigate to Blossom Social login page
         page.goto("https://www.blossomsocial.com/login")
         
         email = os.getenv("BLOSSOM_EMAIL") 
@@ -21,7 +23,8 @@ def get_blossom_portfolio_data():
         page.keyboard.press("Enter")
         time.sleep(5)  # Wait for login to complete
         print("Successfully logged into Blossom Social")
-        # page.click('div[data-sidebar="content"] > ul[data-sidebar="menu"] > li:nth-child(4) > div')
+
+        # Navigate to Portfolio page
         page.click("span:text('Portfolio')")
         print("Navigated to Portfolio page")
         time.sleep(5)  # Wait for the portfolio page to load

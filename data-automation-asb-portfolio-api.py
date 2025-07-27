@@ -27,7 +27,7 @@ headers = {
     'x-version-id': '1.0.0',
 }
 
-CSV_FILE = 'portfolio_data.csv'
+CSV_FILE = 'blossom_portfolio_data.csv'
 HEADERS = [
     'Account Type',
     'Broker Name',
