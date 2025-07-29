@@ -15,7 +15,7 @@ def handle_request(request):
         auth_header = request.headers.get("authorization") or request.headers.get("Authorization")
         if auth_header and "Bearer" in auth_header:
             token_holder["token"] = auth_header.split("Bearer ")[1]
-            print("✅ Bearer Token Captured:", token_holder["token"])
+            # print("✅ Bearer Token Captured:", token_holder["token"])
 
 def get_bearer_token():
     with sync_playwright() as p:
@@ -34,16 +34,16 @@ def get_bearer_token():
         page.fill('input[type="password"]', password)
         page.keyboard.press("Enter")
         time.sleep(5)  # Wait for login to complete
-        print("Successfully logged into Blossom Social")
+        # print("Successfully logged into Blossom Social")
         
         # Navigate to Portfolio page
         page.click("span:text('Portfolio')")
-        print("Navigated to Portfolio page")
+        # print("Navigated to Portfolio page")
         # time.sleep(5)  # Wait for the portfolio page to load
         # content = page.content()
 
         # Wait for the token to be captured
-        print("⏳ Waiting for network request to portfolio endpoint...")
+        # print("⏳ Waiting for network request to portfolio endpoint...")
         time.sleep(5)  # Increase if needed depending on network speed
 
         browser.close()
@@ -51,4 +51,4 @@ def get_bearer_token():
 
 # Use the function
 bearer_token = get_bearer_token()
-print("🔑 Final Bearer Token:", bearer_token)
+print(bearer_token)
