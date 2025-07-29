@@ -51,4 +51,4 @@ def get_bearer_token():
 
 # Use the function
 bearer_token = get_bearer_token()
-print(bearer_token)
+print(bearer_token.strip() if bearer_token else bearer_token)
