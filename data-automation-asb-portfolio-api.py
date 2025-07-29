@@ -3,29 +3,38 @@ import csv
 import os
 from datetime import datetime
 from dotenv import load_dotenv
+import sys
 
 load_dotenv()
 
-headers = {
-    'accept': 'application/json, text/plain, */*',
-    'accept-language': 'en-US,en;q=0.9',
-    'authorization': f"Bearer {os.getenv('API_TOKEN')}",
-    'origin': 'https://www.blossomsocial.com',
-    'priority': 'u=1, i',
-    'referer': 'https://www.blossomsocial.com/',
-    'sec-ch-ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"macOS"',
-    'sec-fetch-dest': 'empty',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-site': 'cross-site',
-    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
-    'x-preferred-currency': 'CAD',
-    'x-request-id': 'WEB_E01A37A50ED0438FBEC0',
-    'x-self-user-id': 'FL3pGHNPsKpDgBne',
-    'x-user-agent': 'com.blossomsocial.web',
-    'x-version-id': '1.0.0',
-}
+def get_headers(api_token):
+    return {
+        'accept': 'application/json, text/plain, */*',
+        'accept-language': 'en-US,en;q=0.9',
+        'authorization': f"Bearer {api_token}",
+        'origin': 'https://www.blossomsocial.com',
+        'priority': 'u=1, i',
+        'referer': 'https://www.blossomsocial.com/',
+        'sec-ch-ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'cross-site',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
+        'x-preferred-currency': 'CAD',
+        'x-request-id': 'WEB_E01A37A50ED0438FBEC0',
+        'x-self-user-id': 'FL3pGHNPsKpDgBne',
+        'x-user-agent': 'com.blossomsocial.web',
+        'x-version-id': '1.0.0',
+    }
+
+if len(sys.argv) < 2:
+    print("Usage: python data-automation-asb-portfolio-api.py <BEARER_TOKEN>")
+    sys.exit(1)
+
+API_TOKEN = sys.argv[1]
+headers = get_headers(API_TOKEN)
 
 CSV_FILE = 'blossom_portfolio_data.csv'
 HEADERS = [
